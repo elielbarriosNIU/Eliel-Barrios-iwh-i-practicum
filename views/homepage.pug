@@ -1,19 +1,19 @@
 doctype html
 html
   head
-    title Homepage
+    title Custom Object Table
     meta(name="viewport" content="width=device-width, initial-scale=1")
     link(rel="stylesheet", href="/css/style.css")
   body
     h1 Libros
-    a(href="/update-cobj") Add
+    a(href="/update-cobj") Add to this table
     table(border="1")
       thead
         tr
           th ID
-          th Nombre
-          th Autor
-          th Genero
+          th Name
+          th Author
+          th Genre
       tbody
         each record in records
           tr

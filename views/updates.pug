@@ -2,19 +2,21 @@ doctype html
 html
   head
     title= title
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(rel="stylesheet", href="/css/style.css")
   body
     h1= title
     form(action="/update-cobj" method="POST")
-      label(for="name") Nombre:
+      label(for="name") Name:
       input(type="text" name="name" required)
       br
-      label(for="author") Autor:
+      label(for="author") Author:
       input(type="text" name="author")
       br
-      label(for="genre") Genero:
+      label(for="genre") Genre:
       input(type="text" name="genre")
       br
-      button(type="submit") Enviar
-    a(href="/") Regresar
+      button(type="submit") Submit
+    a(href="/") Return to the homepage
 
 
