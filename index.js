@@ -33,6 +33,10 @@ app.get('/', async (req, res) => {
   }
 });
 
+
+app.get('/update-cobj', (req, res) => {
+  res.render('updates', { title: 'Nuevo Libro' });
+});
 // TODO: ROUTE 2 - Create a new app.get route for the form to create or update new custom object data. Send this data along in the next route.
 
 // * Code for Route 2 goes here
@@ -60,16 +64,16 @@ app.get('/', async (req, res) => {
 
 app.post('/update-cobj', async (req, res) => {
   try {
-    const { name, bio, type } = req.body;
+    const { name, author, genre } = req.body;
     await axios.post('https://api.hubapi.com/crm/v3/objects/2-47114022', {
       properties: {
         name,
-        bio,
-        type,
+        author,
+        genre,
       }
     }, {
       headers: {
-        Authorization: `Bearer ${process.env.PRIVATE_APP_TOKEN}`,
+        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
         'Content-Type': 'application/json',
       }
     });
