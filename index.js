@@ -16,13 +16,70 @@ const PRIVATE_APP_ACCESS = process.env.PRIVATE_APP_TOKEN;
 
 // * Code for Route 1 goes here
 
+app.get('/', async (req, res) => {
+  try {
+    const response = await axios.get(`https://api.hubapi.com/crm/v3/objects/2-47114022?properties=name&properties=genre&properties=author`, {
+      headers: {
+        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`
+      }
+    });
+
+    const records = response.data.results;
+    console.log(records)
+    res.render('homepage', { records });
+  } catch (error) {
+    console.error('Error fetching records:', error.response?.data || error.message);
+    res.status(500).send('Error fetching records');
+  }
+});
+
 // TODO: ROUTE 2 - Create a new app.get route for the form to create or update new custom object data. Send this data along in the next route.
 
 // * Code for Route 2 goes here
 
 // TODO: ROUTE 3 - Create a new app.post route for the custom objects form to create or update your custom object data. Once executed, redirect the user to the homepage.
 
+app.get('/', async (req, res) => {
+  try {
+    const response = await axios.get('https://api.hubapi.com/crm/v3/objects/2-47114022', {
+      headers: {
+        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+      }
+    });
+
+    const records = response.data.results;
+    res.render('homepage', { records });
+  } catch (err) {
+    console.error(err.response?.data || err.message);
+    res.status(500).send("Error fetching records");
+  }
+});
+
+
 // * Code for Route 3 goes here
+
+app.post('/update-cobj', async (req, res) => {
+  try {
+    const { name, bio, type } = req.body;
+    await axios.post('https://api.hubapi.com/crm/v3/objects/2-47114022', {
+      properties: {
+        name,
+        bio,
+        type,
+      }
+    }, {
+      headers: {
+        Authorization: `Bearer ${process.env.PRIVATE_APP_TOKEN}`,
+        'Content-Type': 'application/json',
+      }
+    });
+    res.redirect('/');
+  } catch (error) {
+    console.error(error.response?.data || error.message);
+    res.status(500).send("Error creating record");
+  }
+});
+
 
 /** 
 * * This is sample code to give you a reference for how you should structure your calls. 
